@@ -1,10 +1,15 @@
 const express = require("express");
 const router = express.Router();
 const {
-
+    createItem,
+    deleteItem,
+    getAllItems,
 } = require("../controllers/itemController")
-router.get("/",(req, res)=>{
-    res.status(200).json({message: "this is itemRoutes"});
-});
+
+const authMiddleware = require("../middleware/authMiddleware");
+
+router.route("/").get(getAllItems)
+router.route("/").post(authMiddleware, createItem);
+router.route("/:id").delete(authMiddleware, deleteItem);
 
 module.exports = router;

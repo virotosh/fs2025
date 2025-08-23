@@ -78,7 +78,6 @@ const loginUser = async (req, res) => {
 const userProfile = async (req, res) => {
 	try {
 		const token = req.headers.authorization.split(" ")[1];
-        console.log(token);
 		const decoded = jwt.decode(token, process.env.JWT_SECRET);
 		if (!decoded) {
 			return res.status(401).json({ message: "Invalid token" });
