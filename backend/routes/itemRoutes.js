@@ -11,6 +11,6 @@ const authMiddleware = require("../middleware/authMiddleware");
 
 router.route("/").get(getAllItems)
 router.route("/").post(authMiddleware, createItem);
-router.route("/:id")
+router.route("/:id").delete(authMiddleware, deleteItem)
         .get(getItemById);
 module.exports = router;
