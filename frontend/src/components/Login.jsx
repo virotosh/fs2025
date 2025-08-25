@@ -11,7 +11,7 @@ function Login() {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState("");
 	const navigate = useNavigate();
-	const { isLoggedIn } = useAuth();
+	const { isLoggedIn, login } = useAuth();
 
 	useEffect(() => {
 		if (isLoggedIn) {
@@ -29,7 +29,8 @@ function Login() {
 				{ withCredentials: true }
 			);
 			if (res.status === 200) {
-				//navigate("/profile");
+				navigate("/profile");
+				login();
                 console.log(document.cookie);
 			}
 		} catch (err) {

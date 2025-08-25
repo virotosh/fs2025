@@ -4,12 +4,21 @@ import Home from "./components/Home";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 import Profile from "./components/Profile";
+import Logout from "./components/Logout";
 import { AuthProvider } from "./contexts/AuthContext";
 import { useState, useEffect } from "react";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const login = () => {
+		setIsLoggedIn(true);
+	};
+
+	const logout = () => {
+		setIsLoggedIn(false);
+	};
 
   const token = document.cookie
 		.split("; ")
@@ -18,22 +27,23 @@ function App() {
 
   useEffect( () => {
     if (token) {
-      setIsLoggedIn(true);
+      login();
     }
     else {
-      setIsLoggedIn(false);
+      logout();
     }
   }, [token]);
 
 
   return (
-    <AuthProvider value={{ isLoggedIn }}>
+    <AuthProvider value={{ isLoggedIn, login, logout }}>
       <BrowserRouter>
         <NavBar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/logout" element={<Logout />} />
           <Route
 							path="/profile"
 							element={<ProtectedRoute component={Profile} />}
