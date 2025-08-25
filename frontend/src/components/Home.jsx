@@ -27,7 +27,10 @@ function Home() {
               <b>{item.description}</b>
             </p>
             <p className="text-gray-300 mt-2">
-              <b>{item.createdBy}</b>
+              <b>${item.price}</b>
+            </p>
+            <p className="text-gray-300 mt-2">
+              <b>Seller {item.createdBy}</b>
             </p>
           </li>
         ))}

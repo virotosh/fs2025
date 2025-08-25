@@ -5,6 +5,7 @@ import Signup from "./components/Signup";
 import Login from "./components/Login";
 import Profile from "./components/Profile";
 import Logout from "./components/Logout";
+import CreateItem from "./components/CreateItem";
 import { AuthProvider } from "./contexts/AuthContext";
 import { useState, useEffect } from "react";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -48,6 +49,10 @@ function App() {
 							path="/profile"
 							element={<ProtectedRoute component={Profile} />}
 						/>
+          <Route
+              path="/createitem"
+              element={<ProtectedRoute component={CreateItem} />}
+            />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
