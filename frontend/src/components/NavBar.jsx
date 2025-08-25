@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 
 const NavBar = () => {
-
+    const { isLoggedIn } = useAuth();
     return (
         <nav className="bg-gray-900 bg-opacity-80 backdrop-blur-md p-4 shadow-lg">
 			<div className="container mx-auto flex items-center justify-between">
@@ -15,22 +16,54 @@ const NavBar = () => {
                                 Home
                             </Link>
                         </li>
-                        <li>
-                            <Link
-                                className="text-white hover:text-gray-300 text-lg"
-                                to="/signup"
-                            >
-                                Sign Up
-                            </Link>
-                        </li>
-                        <li>
-                            <Link
-                                className="text-white hover:text-gray-300 text-lg"
-                                to="/logout"
-                            >
-                                Logout
-                            </Link>
-                        </li>
+                        {!isLoggedIn && (
+							<>
+                            <li>
+                                <Link
+                                    className="text-white hover:text-gray-300 text-lg"
+                                    to="/signup"
+                                >
+                                    Sign Up
+                                </Link>
+                            </li>
+                            </>
+                        )}
+                        {!isLoggedIn && (
+							<>
+                            <li>
+                                <Link
+                                    className="text-white hover:text-gray-300 text-lg"
+                                    to="/login"
+                                >
+                                    Login
+                                </Link>
+                            </li>
+                            </>
+                        )}
+                        {isLoggedIn && (
+							<>
+                            <li>
+                                <Link
+                                    className="text-white hover:text-gray-300 text-lg"
+                                    to="/profile"
+                                >
+                                    Profile
+                                </Link>
+                            </li>
+                            </>
+                        )}
+                        {isLoggedIn && (
+							<>
+                            <li>
+                                <Link
+                                    className="text-white hover:text-gray-300 text-lg"
+                                    to="/logout"
+                                >
+                                    Logout
+                                </Link>
+                            </li>
+                            </>
+                        )}
                     </ul>
                 </div>
 			</div>
