@@ -29,9 +29,30 @@ export default function App() {
         if (_tokenExpire !== null) {
           setTokenExpire(_tokenExpire);
         }
-        const _token = await AsyncStorage.getItem("token");
-        if (_token !== null) {
-          setToken(_token);
+        if (parseInt(tokenExpire)<Date.now()){
+          const removeToken = async () => {
+            try {
+                await AsyncStorage.removeItem("token");
+            } catch (e) {
+                console.log("Error! While remove token");
+            }
+          };
+          const removeTokenExpire = async () => {
+              try {
+                  await AsyncStorage.removeItem("tokenExpire");
+              } catch (e) {
+                  console.log("Error! While remove tokenExpire");
+              }
+          };
+          removeToken();
+          removeTokenExpire();
+          logout();
+        }
+        else{
+          const _token = await AsyncStorage.getItem("token");
+          if (_token !== null) {
+            setToken(_token);
+          }
         }
       } catch (e) {
         console.error("Error while loading token!");

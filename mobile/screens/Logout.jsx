@@ -5,7 +5,7 @@ import { useAuth } from "../contexts/AuthContext";
 const Logout = ({navigation}) => {
     const { isLoggedIn, logout } = useAuth();
     useEffect(() => {
-        const removeToken = async (token) => {
+        const removeToken = async () => {
             try {
                 await AsyncStorage.removeItem("token");
             } catch (e) {
