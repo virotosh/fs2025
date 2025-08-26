@@ -7,7 +7,6 @@ import ItemUI from "./ItemUI";
 const Home = () => {
     const [itemList, setItemList] = useState([]);
     useEffect(() => {
-        console.log('useeffect');
 		const fetchItems = async () => {
 			const res = await axios.get("http://192.168.0.102:5000/api/items");
 			setItemList(res.data);
