@@ -27,3 +27,5 @@ app.use(router);
 app.use("/api/users", require("./routes/userRoutes"));
 
 app.listen(process.env.PORT, () => console.log(`Server running on port ${process.env.PORT}`));
+
+mongodb+srv://tungvuong:MQTs0ki6SMqtI4xh@cluster0.qli2kmd.mongodb.net/
