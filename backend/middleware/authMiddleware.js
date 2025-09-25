@@ -4,7 +4,6 @@ const User = require("../models/User");
 
 const authMiddleware = async (req, res, next) => {
    try {
-       console.log(req.rawHeaders);
        const token = req.rawHeaders
            .find((header) => header.includes("jwt="))
            .split("; ")
