@@ -20,6 +20,14 @@ const NavBar = () => {
                        <li>
                            <Link
                                className="text-white hover:text-gray-300 text-lg"
+                               to="/login"
+                           >
+                               Log In
+                           </Link>
+                       </li>
+                       <li>
+                           <Link
+                               className="text-white hover:text-gray-300 text-lg"
                                to="/signup"
                            >
                                Sign Up

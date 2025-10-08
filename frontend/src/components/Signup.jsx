@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import axios from "axios";
+import { useAuth } from "../contexts/AuthContext";
 
 function Signup() {
     const [username, setUsername] = useState("");
@@ -9,6 +10,16 @@ function Signup() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const navigate = useNavigate();
+
+    const { isLoggedIn } = useAuth();
+    
+    useEffect(() => {
+        if (isLoggedIn) {
+            navigate("/profile");
+        }
+    }, [isLoggedIn, navigate]);
+
+    
     const handleSignup = async (e) => {
         e.preventDefault();
         setLoading(true);
