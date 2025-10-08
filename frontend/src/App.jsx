@@ -9,6 +9,7 @@ import CreateItem from "./components/CreateItem";
 import { useState, useEffect } from "react";
 import { AuthProvider } from "./contexts/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Cart from "./components/Cart";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -44,6 +45,10 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<ProtectedRoute component={Profile} />} />
         <Route path="/createitem" element={<ProtectedRoute component={CreateItem} />} />
+        <Route
+             path="/cart"
+             element={<ProtectedRoute component={Cart} />}
+           />
         <Route path="/signup" element={<Signup />} />
         <Route path="/logout" element={<Logout />} />
       </Routes>

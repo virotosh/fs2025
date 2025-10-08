@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import { connect } from 'react-redux';
 
-const NavBar = () => {
+const NavBar = ({cart}) => {
     const { isLoggedIn } = useAuth();
     return (
         <nav className="bg-gray-900 bg-opacity-80 backdrop-blur-md p-4 shadow-lg">
@@ -76,7 +77,18 @@ const NavBar = () => {
                           </li>
                           </>
                       )}
-
+                        {isLoggedIn && (
+                           <>
+                           <li>
+                               <Link
+                                   className="text-white hover:text-gray-300 text-lg"
+                                   to="/cart"
+                               >
+                                   Cart ({cart.items.length})
+                               </Link>
+                           </li>
+                           </>
+                       )}
                     </ul>
                 </div>
             </div>
@@ -85,4 +97,13 @@ const NavBar = () => {
  
 };
 
-export default NavBar;
+const mapStateToProps = state => ({
+    cart: state.cart
+ });
+ 
+ 
+ export default connect(
+    mapStateToProps,
+    null
+ )(NavBar);
+ 
