@@ -3,6 +3,7 @@ import NavBar from "./components/NavBar";
 import Home from "./components/Home";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
+import Logout from "./components/Logout";
 import Profile from "./components/Profile";
 import { useState, useEffect } from "react";
 import { AuthProvider } from "./contexts/AuthContext";
@@ -42,6 +43,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<ProtectedRoute component={Profile} />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/logout" element={<Logout />} />
       </Routes>
     </BrowserRouter>
    </AuthProvider>

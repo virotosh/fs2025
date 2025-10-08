@@ -15,7 +15,6 @@ function Login() {
         console.log(isLoggedIn);
         if (isLoggedIn) {
             navigate("/profile");
-         login();
         }
     }, [isLoggedIn, navigate]);
     
@@ -30,6 +29,7 @@ function Login() {
             );
             if (res.status === 200) {
                 navigate("/profile");
+                login();
             }
         } catch (err) {
             setError(err.response?.data?.message || "An error occurred");
