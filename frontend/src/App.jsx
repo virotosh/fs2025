@@ -5,6 +5,7 @@ import Signup from "./components/Signup";
 import Login from "./components/Login";
 import Logout from "./components/Logout";
 import Profile from "./components/Profile";
+import CreateItem from "./components/CreateItem";
 import { useState, useEffect } from "react";
 import { AuthProvider } from "./contexts/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -42,6 +43,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<ProtectedRoute component={Profile} />} />
+        <Route path="/createitem" element={<ProtectedRoute component={CreateItem} />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/logout" element={<Logout />} />
       </Routes>
