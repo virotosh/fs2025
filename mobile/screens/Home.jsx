@@ -15,25 +15,23 @@ const Home = () => {
     }, []);
  
    return (
-       <SafeAreaView style={styles.homeContainer}>
-           <View style={styles.mainContainer}>
-               <FlatList
-                   data={itemList}
-                   key={(item) => item.id}
-                   renderItem={({ item }) => (
-                       <ItemUI
-                           title={item.title}
-                           price={item.price}
-                           id={item.id}
-                           description={item.description}
-                       />
-                   )}
-               />
-           </View>
-           <View style={styles.mainContainer}>
-           </View>
-       </SafeAreaView>
-   );
+        <SafeAreaView style={styles.homeContainer}>
+            <View style={styles.mainContainer}>
+                <FlatList
+                    data={itemList}
+                    key={(item) => item.id}
+                    renderItem={({ item }) => (
+                        <ItemUI
+                            title={item.title}
+                            price={item.price}
+                            id={item.id}
+                            description={item.description}
+                        />
+                    )}
+                />
+            </View>
+        </SafeAreaView>
+	);
 }
 
 export default Home;
