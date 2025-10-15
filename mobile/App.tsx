@@ -1,45 +1,88 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
-import {
-  SafeAreaProvider,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
+import Home from "./screens/Home"
+import Login from "./screens/Login"
+import Logout from "./screens/Logout"
+import Profile from "./screens/Profile"
+import { AuthProvider } from "./contexts/AuthContext";
+import { useState, useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-function App() {
-  const isDarkMode = useColorScheme() === 'dark';
+const Tab = createBottomTabNavigator();
 
-  return (
-    <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <AppContent />
-    </SafeAreaProvider>
-  );
+export default function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [tokenExpire, setTokenExpire] = useState("");
+  const [token, setToken] = useState("");
+  
+  const login = () => {
+    setIsLoggedIn(true);
+  };
+
+  const logout = () => {
+    setIsLoggedIn(false);
+  };
+  const getToken = async () => {
+    try {
+      const _tokenExpire = await AsyncStorage.getItem("tokenExpire");
+      if (_tokenExpire !== null) {
+        setTokenExpire(_tokenExpire);
+      }
+      if (parseInt(tokenExpire)<Date.now()){
+        const removeToken = async () => {
+          try {
+              await AsyncStorage.removeItem("token");
+          } catch (e) {
+              console.log("Error! While remove token");
+          }
+        };
+        const removeTokenExpire = async () => {
+            try {
+                await AsyncStorage.removeItem("tokenExpire");
+            } catch (e) {
+                console.log("Error! While remove tokenExpire");
+            }
+        };
+        removeToken();
+        removeTokenExpire();
+        logout();
+      }
+      else{
+        const _token = await AsyncStorage.getItem("token");
+        if (_token !== null) {
+          setToken(_token);
+        }
+      }
+    } catch (e) {
+      console.error("Error while loading token!");
+    }
+  };
+  useEffect( () => {
+    getToken();
+    if (token) {
+      console.log("login");
+      login();
+    }
+    else {
+      console.log("logout");
+      logout();
+    }
+  }, [token]);
+ return (
+     <NavigationContainer>
+      <AuthProvider value={{ isLoggedIn, login, logout }}>
+        <Tab.Navigator>
+          <Tab.Screen name="Home" component={Home} options={{headerShown: false}}/>
+          <Tab.Screen name="Profile" component={Profile} options={{headerShown: false}}/>
+          {!isLoggedIn && (
+            <Tab.Screen name="Login" component={Login} options={{headerShown: false}}/>
+          )}
+          {isLoggedIn && (
+            <Tab.Screen name="Logout" component={Logout} options={{headerShown: false}}/>
+          )}
+        </Tab.Navigator>
+       </AuthProvider>
+     </NavigationContainer>
+ );
 }
-
-function AppContent() {
-  const safeAreaInsets = useSafeAreaInsets();
-
-  return (
-    <View style={styles.container}>
-      <NewAppScreen
-        templateFileName="App.tsx"
-        safeAreaInsets={safeAreaInsets}
-      />
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
-
-export default App;
